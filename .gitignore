@@ -1,0 +1,18 @@
+# Maven build output
+target/
+
+# The real .env must NEVER be committed — only .env.example
+.env
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db

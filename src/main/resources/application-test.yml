@@ -1,0 +1,4 @@
+jwt:
+  # Fixed secret for tests — overrides the application.yml value
+  secret: test-only-secret-key-for-automated-tests-not-for-production-256bits
+  expiration: 3600000

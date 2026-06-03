@@ -1,0 +1,39 @@
+spring:
+  config:
+    # Loads .env file automatically when running locally from IntelliJ
+    # The 'optional:' prefix means the app won't fail if .env doesn't exist
+    import: "optional:file:.env[.properties]"
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:bakery_db}
+    username: ${DB_USER:bakery_user}
+    password: ${DB_PASSWORD:bakery_pass}
+
+  jpa:
+    hibernate:
+      # 'validate': JPA checks entities match the schema created by Flyway
+      ddl-auto: validate
+    # Disable Open Session in View — best practice for REST APIs
+    open-in-view: false
+    show-sql: false
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: ${SERVER_PORT:8080}
+
+jwt:
+  # Default only for development — always set a real secret in production via .env
+  secret: ${JWT_SECRET:insecure-default-development-secret-replace-before-going-to-production}
+  # Expiration in milliseconds: 86400000 = 24 hours
+  expiration: ${JWT_EXPIRATION:86400000}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
