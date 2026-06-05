@@ -1,0 +1,1 @@
+UPDATE users SET password = '$2a$10$5LjPlVRLtln7OlIMPhgVb.5XdrrqUWE6SjwdyWNAYV5AcOqfdGaX2' WHERE email = 'admin@bakery.com';
