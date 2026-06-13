@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
 import { getProducts } from '../../api/productApi'
+import { addToCart } from '../../api/cartApi'
 
 function CatalogPage() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [addedProductId, setAddedProductId] = useState(null)
+  const { token } = useAuth()
+  const navigate = useNavigate()
 
   useEffect(() => {
     getProducts()
@@ -12,6 +18,19 @@ function CatalogPage() {
       .catch(() => setError('Error al cargar los productos'))
       .finally(() => setLoading(false))
   }, [])
+
+  function handleAddToCart(productId) {
+    if (!token) {
+      navigate('/login')
+      return
+    }
+    addToCart(productId, 1)
+      .then(() => {
+        setAddedProductId(productId)
+        setTimeout(() => setAddedProductId(null), 1500)
+      })
+      .catch(() => setError('Error al añadir al carrito'))
+  }
 
   if (loading) return (
     <div className="flex justify-center py-20">
@@ -47,8 +66,15 @@ function CatalogPage() {
               <p className="text-stone-500 text-sm mt-2">{product.description}</p>
               <div className="flex items-center justify-between mt-4">
                 <span className="text-2xl font-bold text-amber-800">{product.price} €</span>
-                <button className="bg-amber-700 hover:bg-amber-600 text-white px-4 py-2 rounded-lg transition text-sm font-medium">
-                  Añadir al carrito
+                <button
+                  onClick={() => handleAddToCart(product.id)}
+                  className={`px-4 py-2 rounded-lg transition text-sm font-medium text-white ${
+                    addedProductId === product.id
+                      ? 'bg-green-600'
+                      : 'bg-amber-700 hover:bg-amber-600'
+                  }`}
+                >
+                  {addedProductId === product.id ? '¡Añadido!' : 'Añadir al carrito'}
                 </button>
               </div>
             </div>
