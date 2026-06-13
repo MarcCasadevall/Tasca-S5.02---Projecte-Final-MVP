@@ -31,6 +31,11 @@ function Navbar() {
         <Link to="/" className="hover:text-amber-200 transition font-medium">
           Catálogo
         </Link>
+        {token && (
+          <Link to="/cart" className="hover:text-amber-200 transition font-medium">
+            Carrito
+          </Link>
+        )}
         {role === 'ADMIN' && (
           <Link to="/admin/products" className="hover:text-amber-200 transition font-medium">
             Panel Admin
