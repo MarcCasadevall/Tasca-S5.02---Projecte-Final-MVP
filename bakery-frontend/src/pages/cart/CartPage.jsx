@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { getCart, updateCartItem, removeFromCart } from '../../api/cartApi'
 
 function CartPage() {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     getCart()
@@ -96,8 +97,7 @@ function CartPage() {
               </button>
             </div>
             <p className="w-24 text-right font-bold text-amber-800">
-              {item.subtotal.toFixed(2)} €
-            </p>
+              {item.subtotal.toFixed(2)} €</p>
             <button
               onClick={() => handleRemove(item.productId)}
               className="text-red-400 hover:text-red-600 transition text-sm font-medium ml-2"
@@ -113,8 +113,8 @@ function CartPage() {
       </div>
       <div className="flex justify-end mt-6">
         <button
-          disabled
-          className="bg-amber-700 text-white px-8 py-3 rounded-xl font-semibold opacity-50 cursor-not-allowed"
+          onClick={() => navigate('/checkout')}
+          className="bg-amber-700 hover:bg-amber-600 text-white px-8 py-3 rounded-xl font-semibold transition"
         >
           Proceder al pedido
         </button>

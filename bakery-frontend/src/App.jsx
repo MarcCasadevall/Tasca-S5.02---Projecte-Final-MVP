@@ -7,6 +7,7 @@ import CatalogPage from './pages/catalog/CatalogPage'
 import AdminProductsPage from './pages/admin/AdminProductsPage'
 import CartPage from './pages/cart/CartPage'
 import ProtectedRoute from './routes/ProtectedRoute'
+import CheckoutPage from './pages/order/CheckoutPage'
 
 function App() {
   return (
@@ -33,6 +34,14 @@ function App() {
                   <ProtectedRoute>
                     <CartPage />
                   </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/checkout"
+                element={
+                  <ProtectedRoute>
+                    <CheckoutPage />
+                 </ProtectedRoute>
                 }
               />
             </Routes>
