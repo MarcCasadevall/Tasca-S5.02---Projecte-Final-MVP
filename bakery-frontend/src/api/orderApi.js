@@ -19,3 +19,11 @@ export function placeOrder(data) {
 export function getMyOrders() {
   return authApi.get('/api/orders/my')
 }
+
+export function getAllOrders() {
+  return authApi.get('/api/admin/orders')
+}
+
+export function updateOrderStatus(orderId, status) {
+  return authApi.patch(`/api/admin/orders/${orderId}/status`, { status })
+}
