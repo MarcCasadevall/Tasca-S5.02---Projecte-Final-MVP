@@ -8,6 +8,7 @@ import AdminProductsPage from './pages/admin/AdminProductsPage'
 import CartPage from './pages/cart/CartPage'
 import ProtectedRoute from './routes/ProtectedRoute'
 import CheckoutPage from './pages/order/CheckoutPage'
+import OrderHistoryPage from './pages/order/OrderHistoryPage'
 
 function App() {
   return (
@@ -41,7 +42,15 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <CheckoutPage />
-                 </ProtectedRoute>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/my-orders"
+                element={
+                  <ProtectedRoute>
+                    <OrderHistoryPage />
+                  </ProtectedRoute>
                 }
               />
             </Routes>
