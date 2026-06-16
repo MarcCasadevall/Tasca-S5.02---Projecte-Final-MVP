@@ -5,8 +5,10 @@ import com.bakery.cart.CartItemRepository;
 import com.bakery.order.dto.OrderItemResponse;
 import com.bakery.order.dto.OrderResponse;
 import com.bakery.order.dto.PlaceOrderRequest;
+import com.bakery.order.dto.UpdateOrderStatusRequest;
 import com.bakery.user.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,6 +65,20 @@ public class OrderService {
                 .stream()
                 .map(this::toResponse)
                 .toList();
+    }
+
+    public List<OrderResponse> getAllOrders() {
+        return orderRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"))
+                .stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+    public OrderResponse updateOrderStatus(Long orderId, UpdateOrderStatusRequest request) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+        order.setStatus(request.getStatus());
+        return toResponse(orderRepository.save(order));
     }
 
     private OrderResponse toResponse(Order order) {

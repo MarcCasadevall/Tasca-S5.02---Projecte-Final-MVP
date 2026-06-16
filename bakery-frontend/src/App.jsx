@@ -5,6 +5,7 @@ import LoginPage from './pages/auth/LoginPage'
 import RegisterPage from './pages/auth/RegisterPage'
 import CatalogPage from './pages/catalog/CatalogPage'
 import AdminProductsPage from './pages/admin/AdminProductsPage'
+import AdminOrdersPage from './pages/admin/AdminOrdersPage'
 import CartPage from './pages/cart/CartPage'
 import ProtectedRoute from './routes/ProtectedRoute'
 import CheckoutPage from './pages/order/CheckoutPage'
@@ -26,6 +27,14 @@ function App() {
                 element={
                   <ProtectedRoute requiredRole="ADMIN">
                     <AdminProductsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/orders"
+                element={
+                  <ProtectedRoute requiredRole="ADMIN">
+                    <AdminOrdersPage />
                   </ProtectedRoute>
                 }
               />

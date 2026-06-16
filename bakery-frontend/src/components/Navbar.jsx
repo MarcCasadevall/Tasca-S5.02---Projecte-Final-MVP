@@ -46,6 +46,11 @@ function Navbar() {
             Panel Admin
           </Link>
         )}
+        {role === 'ADMIN' && (
+          <Link to="/admin/orders" className="hover:text-amber-200 transition font-medium">
+            Pedidos
+          </Link>
+        )}
         {token ? (
           <button
             onClick={handleLogout}
